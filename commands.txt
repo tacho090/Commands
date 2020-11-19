@@ -1,0 +1,288 @@
+
+# MINIKUBE
+
+# minikube version
+minikube version
+
+#start minikube with
+# comma separated list of Kubernetes components to verify and wait for after starting a cluster
+minikube start --wait=false
+
+# enable addons for minikube
+minikube addons enable dashboard
+
+# KUBECTL
+
+# details of cluster
+kubectl cluster-info
+
+# view the deployments in the cluster
+kubectl get deployments
+
+# create deployment
+kubectl create deployment <deployment-name> --image=<image-name>
+
+# get cluster pods
+kubectl get pods
+
+# expose deployment on specific port using NodePort
+kubectl expose deployment <deployment-name> --port=<port-number> --type=NodePort
+
+# deploy definition on katacoda
+kubectl apply -f /opt/kubernetes-dashboard.yml
+
+# sh into pod
+kubectl exec --stdin --tty <pod-name> -- /bin/bash
+
+# run deployment with properties
+kubectl run http --image=katacoda/docker-http-server:latest --replicas=1
+
+# describe deployment
+kubectl describe deployment <deployment-name>
+
+# curl url
+curl <uri>:<port>
+curl http://172.17.0.43:8000
+
+# scale pods
+kubectl scale --replicas=3 deployment <deployment-name>
+
+# DOCKER
+
+# list all docker images
+docker ps --all
+
+# build docker file
+docker build --tag <imagename>:<version> .
+
+# run docker file
+docker run --publish 8000:8080 --detach --name bb <imagename>:<version>
+
+# delete docker image from list
+docker rm --force <name>
+
+# docker-compose up
+docker-compose up -f docker-compose.yml
+
+# docker-compose in detached mode to run services on the background
+docker-compose up -d
+
+# see what's currently running in docker-compose
+docker-compose ps
+
+# see environment variables of current docker-compose
+docker-compose run <service-name> env
+
+# stop current docker-compose
+docker-compose stop
+
+# bring everything down
+docker-compose down --volumes
+
+# docker update container
+docker update <continer-name> --options
+
+# docker build image
+docker build -t av-app-image .
+
+# delete all images
+docker rmi -f $(docker images -aq)
+
+# delete all containers including its columes use
+docker rm -vf $(docker ps -aq)
+
+# delete all running services
+docker service rm $(docker service ls -q)
+
+# docker service update
+docker service update --image <image-name> <service to update> 
+
+# update service port
+d�ocker service update --publish-rm 8088 --publish-add 9090:80 web
+
+# docker container list all that have been run
+docker container ls -a
+
+# Display the running process inside the container
+docker container top <container-name>
+
+# Inspect container
+docker container inspect <container-name>
+
+# run bash inside the container
+docker container run -it --name proxy-x nginx bash
+
+# run existing container interactively
+docker container start -ai ubuntu
+
+# pull docker image
+docker pull <container-name>
+
+# show docker container port
+docker container port <container-name>
+
+# list of all docker networks
+docker network ls
+
+# inspect docker network
+docker network inspect <network-name>
+
+# create virtual network
+docker network create <network-name>
+
+# connect docker container to a different network
+docker network connect <network-name/id> <container-name/id>
+
+# ping running container from another container
+# you need to sh into container and install ping package first
+docker container exec -it my_nginx ping new_nginx
+
+# run container "elasticsearch"  on network "dude" with alias "search" 
+docker container run -d --net dude --net-alias search elasticsearch:2
+
+# review docker image layer history
+docker history nginx:latest
+
+# run docker container with health check
+docker container run --name p2 -e POSTGRES_PASSWORD=password -d --health-cmd="pg_isready -U postgres || exit 1" postgres
+
+# tag image 
+docker tag hello-world 127.0.0.1:5000/hello-world
+
+# build docker image with a specific dockerfile 	
+docker build -f some-dockerfile
+
+# prune images
+docker image prune
+
+# display volumes
+docker volume ls
+
+# run container with named volume
+docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v mysql-db:/var/lib/mysql mysql
+
+# setup volumes/networks
+docker-compose up
+
+# stop all containers and remove /cont/vol/net
+docker-compose down
+
+# display docker-compose containers running
+docker-compose ps
+
+# see top processes on docker-compose
+docker-compose top
+
+# persistent data bind mounting
+# binds local directory to directory inside dockerfile
+# they both update simoultaneously
+docker container run -d --name nginx -p 80:80 -v $(pwd):/usr/share/nginx/html nginx
+
+# DOCKER SWARM
+
+# init docker swarm
+docker swarm init
+
+# show docker nodes
+docker node ls
+
+# docker service create
+docker service create alpine ping 8.8.8.8
+
+# information about the service
+docker service ps <service-name>
+
+# update number of replicas for docker service
+docker service update <service-id/name> --replicas 3
+
+# docker service update
+docker service update --help
+
+# create secret
+docker secret create psql_user psql_user.txt
+
+# DOCKER MACHINE
+
+# Create node
+docker-machine create <nodename>
+
+# ssh into node
+docker-machine ssh node1
+
+# display environment variables for node1
+docker-machine env node1
+
+# program local machine to target node 1 inside virtual machine
+eval $(docker-machine env node1)
+
+# docker stack services
+docker stack services voteapp
+
+# DIGITAL OCEAN
+
+# ssh into node on remote server
+ssh root@<node-ip>
+
+# install docker on remote server in one line
+curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+
+# adviertise ip address from node inside digital ocean cluster
+docker swarm init --advertise-addr 67.205.171.59
+
+# update role of node from leader node
+docker node update --role manager node2
+
+
+#NATIVESCRIPT
+
+# run nativescript application on emulator device
+tns run android --device Pixel_3a_API_30_x86
+
+# Verify available devices
+tns device android --available-devices
+
+
+
+
+# succesfully running an application on an android emulator
+➜  HelloWorld git:(master) ✗ tns run android --device Pixel_3a_API_30_x86
+Searching for devices...
+Starting Android emulator with image Pixel_3a_API_30_x86
+Waiting for emulator device initialization...
+Your application will be deployed only on the device specified by the provided index or identifier.
+Preparing project...
+File change detected. Starting incremental webpack compilation...
+
+webpack is watching the files…
+
+Hash: 0f29a0178484f3e600ba
+Version: webpack 4.44.2
+Time: 41471ms
+Built at: 10/30/2020 5:01:57 PM
+              Asset      Size   Chunks             Chunk Names
+          bundle.js  43.9 KiB   bundle  [emitted]  bundle
+       package.json   1.5 KiB           [emitted]  
+         runtime.js  77.1 KiB  runtime  [emitted]  runtime
+tns-java-classes.js   0 bytes           [emitted]  
+          vendor.js  16.9 MiB   vendor  [emitted]  vendor
+Entrypoint bundle = runtime.js vendor.js bundle.js
+[../$$_lazy_route_resource lazy recursive] ../$$_lazy_route_resource lazy namespace object 160 bytes {bundle} [built]
+[./app.css] 2.03 KiB {bundle} [built]
+[./app/app-routing.module.ts] 1.27 KiB {bundle} [built]
+[./app/app.component.ts] 853 bytes {bundle} [built]
+[./app/app.module.ts] 1.56 KiB {bundle} [built]
+[./app/item/item-detail.component.ts] 2.02 KiB {bundle} [built]
+[./app/item/item.service.ts] 1.74 KiB {bundle} [built]
+[./app/item/items.component.ts] 1.91 KiB {bundle} [built]
+[./main.ts] 2.3 KiB {bundle} [built]
+[~/package.json] external "~/package.json" 42 bytes {bundle} [optional] [built]
+    + 547 hidden modules
+Webpack compilation complete. Watching for file changes.
+Webpack build done!
+Updating runtime package.json with configuration values...
+Project successfully prepared (android)
+Successfully transferred runtime.js on device emulator-5554.
+Restarting application on device emulator-5554...
+Successfully synced application org.nativescript.HelloWorld on device emulator-5554.
+JS: HMR: Hot Module Replacement Enabled. Waiting for signal.
+JS: Angular is running in development mode. Call enableProdMode() to enable production mode.
