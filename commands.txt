@@ -47,6 +47,44 @@ curl http://172.17.0.43:8000
 # scale pods
 kubectl scale --replicas=3 deployment <deployment-name>
 
+# get logs for deployment, follow and show latest x amount of lines
+kubectl logs deployment/my-apache --follow --tail 1
+
+# combine logs from different pods
+kubectl logs -l run=my-apache
+
+# describe a single pod
+kubectl describe pod my-apache-7b68fdd849-9js47
+
+# live pods
+kubectl get pods -w
+
+# a service is a stable address for pods
+# if we want to connect to pods, we need a service
+# coreDNS allows ud to resolve services by name
+# service types: ClusterIP, NodePort, LoadBalancer, ExternalName
+# ClusterIP (default)
+  # Single, internal virtual IP allocated
+  # Only reachable from within cluster (nodes and pods)
+  # Pods can reach service on apps port number
+  # Service always available on kubernetes
+# NodePort
+  # Designed for something outside the cluster to talk to your services
+  # High port allocated on each node
+  # Anyone can connect if they reach node
+  # Port is open on every node's IP
+  # Other pods need to be updated to this port
+  # Service always available in Kubernetes
+# LoadBalancer
+  # Controls a LB endpoint external to te cluster
+  # only available when infra provider gives you a LB
+  # Creates NodePort+CLusterIP services, tells LB to send to NodePort
+  # traffic coming in your cluster form external source
+  # requires kubernetes provider
+# ExternalName
+  # Adds CNAME DNS record to CoreDNS only
+  # Not used for Pods, but for giving pods a DNS name to use for something outside Kubernetes
+
 # DOCKER
 
 # list all docker images
