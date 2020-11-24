@@ -11,6 +11,9 @@ minikube start --wait=false
 # enable addons for minikube
 minikube addons enable dashboard
 
+# get minikube ip
+minikube ip
+
 # KUBECTL
 
 # details of cluster
@@ -27,6 +30,15 @@ kubectl get pods
 
 # expose deployment on specific port using NodePort
 kubectl expose deployment <deployment-name> --port=<port-number> --type=NodePort
+
+# expose service as a NodePort
+kubectl expose deployment httpenv --port 8888 --name hhtpenv-np --type NodePort
+
+# expose service as LoadBalancer
+kubectl expose deployment httpenv --port 8888 --name httpenv-lb --type LoadBalancer
+
+# run, create and expose generators dry run
+kubectl create deployment sample --image nginx --dry-run -o yaml
 
 # deploy definition on katacoda
 kubectl apply -f /opt/kubernetes-dashboard.yml
@@ -75,15 +87,18 @@ kubectl get pods -w
   # Port is open on every node's IP
   # Other pods need to be updated to this port
   # Service always available in Kubernetes
+  # Create a NodePort creates a ClusterIP too
 # LoadBalancer
   # Controls a LB endpoint external to te cluster
   # only available when infra provider gives you a LB
   # Creates NodePort+CLusterIP services, tells LB to send to NodePort
   # traffic coming in your cluster form external source
   # requires kubernetes provider
+  # Creates a NodePort too
 # ExternalName
   # Adds CNAME DNS record to CoreDNS only
   # Not used for Pods, but for giving pods a DNS name to use for something outside Kubernetes
+
 
 # DOCKER
 
@@ -136,7 +151,7 @@ docker service rm $(docker service ls -q)
 docker service update --image <image-name> <service to update> 
 
 # update service port
-dþocker service update --publish-rm 8088 --publish-add 9090:80 web
+dï¿½ocker service update --publish-rm 8088 --publish-add 9090:80 web
 
 # docker container list all that have been run
 docker container ls -a
