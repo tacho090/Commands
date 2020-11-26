@@ -14,6 +14,37 @@ minikube addons enable dashboard
 # get minikube ip
 minikube ip
 
+# NGINX
+
+# start nginx
+sudo systemctl start nginx
+
+# stop nginx
+sudo systemctl stop nginx
+
+# restart nginx
+sudo systemctl restart nginx
+
+# reload nginx
+sudo systemctl reload nginx
+
+# show ip addresses
+ip addr show | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+
+# nginx status
+systemctl status nginx
+
+# UFW
+
+# allow nginx http
+sudo ufw allow 'Nignx HTTP'
+
+# ufw status
+sudo ufw status
+
+# app list ufw
+sudo ufw app list
+
 # YAML file conventions
 
 # Each manifest needs four parts (root key:values in the file)
