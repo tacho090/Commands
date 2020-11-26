@@ -14,10 +14,30 @@ minikube addons enable dashboard
 # get minikube ip
 minikube ip
 
+# YAML file conventions
+
+# Each manifest needs four parts (root key:values in the file)
+apiVersion:
+kind:
+metadata:
+spec:
+
 # KUBECTL
 
 # details of cluster
 kubectl cluster-info
+
+# get kubectl resources
+kubectl api-resources
+
+# explain services documentation
+kubectl explain services.spec
+
+# get api versions command
+kubectl api-versions
+
+# get all the keys each kind supports
+kubectl explain services --recursive
 
 # view the deployments in the cluster
 kubectl get deployments
@@ -39,6 +59,12 @@ kubectl expose deployment httpenv --port 8888 --name httpenv-lb --type LoadBalan
 
 # run, create and expose generators dry run
 kubectl create deployment sample --image nginx --dry-run -o yaml
+
+# execute dry run on server
+kubectl apply -f app.yml --server-dry-run
+
+# difference between yml files which are about to be applied
+kubectl diff -f app.yml
 
 # deploy definition on katacoda
 kubectl apply -f /opt/kubernetes-dashboard.yml
@@ -99,6 +125,25 @@ kubectl get pods -w
   # Adds CNAME DNS record to CoreDNS only
   # Not used for Pods, but for giving pods a DNS name to use for something outside Kubernetes
 
+
+# Volumes in Kubernetes
+
+# Creating and connecting Volumes: 2 types
+# Volumes
+#  Tied to the lifecycle of a pod
+#  All containers in a single pod can share them
+# Persisten Volumes
+#  Created at the cluster level, outlives a pod
+#  Separates storage config from pod using it
+#  multiple pods can share them
+# CSI plugins are the new way to connect to storage
+
+# Ingress
+
+# None of our Service Types work at OSI Layer 7(HTTP)
+# How do we route outside connections based on hostname or URL?
+# Ingress controllers (optional) do this with 3rd party proxies
+# nginx is popular, but Traefik, HAProxy, F5, Envoy, Istio
 
 # DOCKER
 
