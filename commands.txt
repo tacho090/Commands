@@ -1,3 +1,10 @@
+# LINUX
+
+# kill processes on port 5000
+kill $(lsof -t -i:5000)
+
+# change directory ownership
+sudo chown -R $USER:$USER /opt
 
 # MINIKUBE
 
@@ -58,7 +65,14 @@ spec:
 # restart jenkins
 sudo systemctl restart jenkins
 
+# enable jenkins cli
+java -jar jenkins-cli.jar -auth admin:08ce40a45bf14ba594650871aeb1054f -s http://localhost:8080/ -webSocket help
+
 # KUBECTL
+
+# port forwarding
+# this means forward a port from your kubernetes cluster into a port inside your local machine
+kubectl port-forward $(kubectl get pod --selector="app=do-kubernetes-sample-app" --output jsonpath='{.items[0].metadata.name}') 8080:80
 
 # details of cluster
 kubectl cluster-info
