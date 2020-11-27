@@ -53,6 +53,11 @@ kind:
 metadata:
 spec:
 
+# JENKINS
+
+# restart jenkins
+sudo systemctl restart jenkins
+
 # KUBECTL
 
 # details of cluster
@@ -189,6 +194,9 @@ docker run --publish 8000:8080 --detach --name bb <imagename>:<version>
 
 # delete docker image from list
 docker rm --force <name>
+
+# add jenkins to the docker group
+sudo usermod -aG docker jenkins
 
 # docker-compose up
 docker-compose up -f docker-compose.yml
