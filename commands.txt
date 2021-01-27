@@ -1,3 +1,11 @@
+# VIM
+
+# set vim ruler
+:set ruler
+
+# See file metadata such as line and column number
+g+ (Ctrl + g)
+
 # LINUX
 
 # kill processes on port 5000
@@ -206,6 +214,18 @@ kubectl describe pod my-apache-7b68fdd849-9js47
 
 # live pods
 kubectl get pods -w
+
+# Scale replicaset definitions
+kubectl replace -f replicaset-definition.yml
+
+#Scale repplicaset by modifying parameter
+kubectl scale --replicas=6 -f replicaset-definition.yml
+
+# Scale replicasset by modifying parameter of replicaset definition
+kubectl scale --replicas=6 replicaset myapp-replicaset
+
+# Edit replicaset
+kubectl edit replicaset new-replica-set
 
 # a service is a stable address for pods
 # if we want to connect to pods, we need a service
