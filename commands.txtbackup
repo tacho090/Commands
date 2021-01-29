@@ -239,15 +239,6 @@ kubectl scale --replicas=6 replicaset myapp-replicaset
 # Edit replicaset
 kubectl edit replicaset new-replica-set
 
-# Commonly used formats for kubectl outputs
-kubectl create -f deployment-definition-1.yaml --dry-run -o json
-
-# Get pods with all metadata in a wide format
-kubectl get pods -o wide
-
-# Print only resource names
-kubectl get pods -o name
-
 # a service is a stable address for pods
 # if we want to connect to pods, we need a service
 # coreDNS allows ud to resolve services by name
